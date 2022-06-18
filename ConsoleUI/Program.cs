@@ -23,10 +23,23 @@ namespace ConsoleUI
 
             //CarCrudTest();
 
+            CarDtoTest();
+        }
 
+        private static void CarDtoTest()
+        {
+            CarManager carManagerToDto = new CarManager(new EfCarDal());
 
-
-
+            foreach (var car in carManagerToDto.GetCarDetails())
+            {
+                Console.WriteLine
+                    (
+                    "-Brand : " + car.BrandName + "\n" +
+                    " -> Daily price : " + car.DailyPrice + "\n" +
+                    " -> Color : " + car.ColorName + "\n" +
+                    " -> Description : " + car.Description + "\n"
+                    );
+            }
         }
 
         private static void CarCrudTest()
@@ -77,17 +90,17 @@ namespace ConsoleUI
             //Update
             //carManager.Update(
             //    new Car
-            //    { 
-            //        CarId=6, 
-            //        BrandId=14, 
-            //        ColorId=1, 
-            //        ModelYear=2018, 
-            //        DailyPrice=1100, 
-            //        Description= "Ehliyet yasi 3 yil ve uzeri olmali." 
+            //    {
+            //        CarId = 8,
+            //        BrandId = 14,
+            //        ColorId = 1,
+            //        ModelYear = 2019,
+            //        DailyPrice = 750,
+            //        Description = "Ehliyet yasi 1 yil ve uzeri olmali."
             //    });
 
             //Delete
-            //carManager.Delete(new Car { CarId=7 });
+            //carManager.Delete(new Car { CarId=8 });
 
             //Read
             //GetAll()
@@ -115,12 +128,15 @@ namespace ConsoleUI
             //colorManager.Add(new Color { ColorName = "Yeşil" });
             //colorManager.Add(new Color { ColorName = "Açık Mavi" });
             //colorManager.Add(new Color { ColorName = "Koyu Gri" });
+            //colorManager.Add(new Color { ColorName = "Açık Gri" });
 
             //Update
             //colorManager.Update(new Color { ColorId = 1, ColorName = "Beyaz" });
+            //colorManager.Update(new Color { ColorId = 11, ColorName = "Açık Gri 2" });
 
             //Delete
             //colorManager.Delete(new Color { ColorId = 3 });
+            //colorManager.Delete(new Color { ColorId = 11 });
 
             //Read
             //GetAll()
@@ -144,12 +160,16 @@ namespace ConsoleUI
             //brandManager.Add(new Brand { BrandName = "Ford" });
             //brandManager.Add(new Brand { BrandName = "Renault" });
             //brandManager.Add(new Brand { BrandName = "Mazdaa" });
+            //brandManager.Add(new Brand { BrandName = "TOGG" });
+            //brandManager.Add(new Brand { BrandName = "Ferrarii" });
 
             //Update
             //brandManager.Update(new Brand { BrandId = 16, BrandName = "Mazda" });
+            //brandManager.Update(new Brand { BrandId = 18, BrandName = "Ferrari" });
 
             //Delete
             //brandManager.Delete(new Brand { BrandId = 13 });
+            //brandManager.Delete(new Brand { BrandId = 15 });
 
             //Read
             //GetAll()
@@ -159,7 +179,7 @@ namespace ConsoleUI
             }
 
             //GetById()
-            Console.WriteLine("GetById(11) > " + brandManager.GetById(11).BrandName);
+            Console.WriteLine("GetById(17) > " + brandManager.GetById(17).BrandName);
         }
 
         private static void CarBusinessTest()
