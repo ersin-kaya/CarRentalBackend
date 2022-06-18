@@ -19,7 +19,7 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
-            if ((car.Description.Length >= 2) && (car.DailyPrice > 0))
+            if ((car.Description.Length >= 2) && (car.DailyPrice > 0))  //araç ekleme işlemi belirtilen kurallara göre düzenlendi.
             {
                 _carDal.Add(car);
             }

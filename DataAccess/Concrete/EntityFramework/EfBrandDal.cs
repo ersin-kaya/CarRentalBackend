@@ -39,7 +39,7 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<Brand> GetAll(Expression<Func<Brand, bool>> filter = null)
+        public List<Brand> GetAll(Expression<Func<Brand, bool>> filter = null)  //filter = null -> filter yazılması zorunlu değil
         {
             using (ReCapProjectContext context=new ReCapProjectContext())
             {
