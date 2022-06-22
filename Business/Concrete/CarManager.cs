@@ -7,6 +7,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -76,6 +77,13 @@ namespace Business.Concrete
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+        }
+
+        public IDataResult<int> GetModelYearForOldestCar()
+        {
+            var result = _carDal.GetAll().OrderBy(c=>c.ModelYear).First();
+
+            return new SuccessDataResult<int>(result.ModelYear);
         }
     }
 }

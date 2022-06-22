@@ -23,6 +23,15 @@ namespace ConsoleUI
             //10. Gün - Ödev 4 Başlangıcı
             //AddUser();
             //AddCustomer();
+
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+
+            //Console.WriteLine(rentalManager.Add(new Rental { CustomerId = 4, CarId = 4, RentDate = DateTime.Now }).Message);
+            //Console.WriteLine(rentalManager.Add(new Rental { CustomerId = 5, CarId = 2, RentDate = DateTime.Now }).Message);
+
+            //rentalManager.Delete(new Rental { Id=7 });
         }
 
         private static void AddCustomer()

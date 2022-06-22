@@ -42,10 +42,11 @@ namespace Business.Constants
         public static string CustomersListed = "Müşteriler listelendi";
 
         //Rental
-        public static string RentalAdded = "Kiralama eklendi";
+        public static string RentalAdded = "Kiralama gerçekleştirildi";
         public static string RentalDeleted = "Kiralama silindi";
         public static string RentalUpdated = "Kiralama güncellendi";
         public static string RentalsListed = "Kiralamalar listelendi";
+        public static string TheCarIsAlreadyRented = "Araba henüz teslim edilmediği için yeni bir kiralama işlemi yapılamaz";
 
     }
 }
