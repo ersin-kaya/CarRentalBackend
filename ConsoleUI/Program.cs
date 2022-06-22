@@ -21,7 +21,7 @@ namespace ConsoleUI
 
             //ColorCrudTest();
 
-            CarCrudTest();
+            //CarCrudTest();
 
             //CarDtoTest();
         }
@@ -50,7 +50,7 @@ namespace ConsoleUI
             //carManager.Add(
             //    new Car
             //    {
-            //        BrandId = 11,
+            //        BrandId = 7,
             //        ColorId = 4,
             //        DailyPrice = 1500,
             //        ModelYear = 2018,
@@ -60,7 +60,7 @@ namespace ConsoleUI
             //carManager.Add(
             //    new Car
             //    {
-            //        BrandId = 12,
+            //        BrandId = 1,
             //        ColorId = 1,
             //        DailyPrice = 1250,
             //        ModelYear = 2022,
@@ -70,7 +70,7 @@ namespace ConsoleUI
             //carManager.Add(
             //    new Car
             //    {
-            //        BrandId = 14,
+            //        BrandId = 4,
             //        ColorId = 1,
             //        DailyPrice = 1000,
             //        ModelYear = 2018,
@@ -80,7 +80,7 @@ namespace ConsoleUI
             //carManager.Add(
             //    new Car
             //    {
-            //        BrandId = 15,
+            //        BrandId = 2,
             //        ColorId = 1,
             //        DailyPrice = 800,
             //        ModelYear = 2019,
@@ -91,16 +91,16 @@ namespace ConsoleUI
             //carManager.Update(
             //    new Car
             //    {
-            //        CarId = 8,
-            //        BrandId = 14,
+            //        Id = 2,
+            //        BrandId = 7,
             //        ColorId = 1,
-            //        ModelYear = 2019,
-            //        DailyPrice = 750,
-            //        Description = "Ehliyet yasi 1 yil ve uzeri olmali."
+            //        ModelYear = 2023,
+            //        DailyPrice = 1750,
+            //        Description = "Ehliyet yasi 5 yil ve uzeri olmali."
             //    });
 
             //Delete
-            //carManager.Delete(new Car { CarId=8 });
+            //carManager.Delete(new Car { Id = 5 });
 
             //Read
             //GetAll()
@@ -121,7 +121,7 @@ namespace ConsoleUI
             }
 
             //GetById
-            Console.WriteLine("GetById(5).ModelYear > " + carManager.GetById(5).Data.ModelYear);
+            Console.WriteLine("GetById(2).ModelYear > " + carManager.GetById(2).Data.ModelYear);
 
         }
 
@@ -130,35 +130,35 @@ namespace ConsoleUI
             ColorManager colorManager = new ColorManager(new EfColorDal());
 
             //Create
-            //colorManager.Add(new Color { ColorName = "Beyazz" });
-            //colorManager.Add(new Color { ColorName = "Siyah" });
-            //colorManager.Add(new Color { ColorName = "Kırmızı" });
-            //colorManager.Add(new Color { ColorName = "Lacivert" });
-            //colorManager.Add(new Color { ColorName = "Turuncu" });
-            //colorManager.Add(new Color { ColorName = "Gri" });
-            //colorManager.Add(new Color { ColorName = "Bordo" });
-            //colorManager.Add(new Color { ColorName = "Yeşil" });
-            //colorManager.Add(new Color { ColorName = "Açık Mavi" });
-            //colorManager.Add(new Color { ColorName = "Koyu Gri" });
-            //colorManager.Add(new Color { ColorName = "Açık Gri" });
+            //colorManager.Add(new Color { Name = "Beyazz" });
+            //colorManager.Add(new Color { Name = "Siyah" });
+            //colorManager.Add(new Color { Name = "Kırmızı" });
+            //colorManager.Add(new Color { Name = "Lacivert" });
+            //colorManager.Add(new Color { Name = "Turuncu" });
+            //colorManager.Add(new Color { Name = "Gri" });
+            //colorManager.Add(new Color { Name = "Bordo" });
+            //colorManager.Add(new Color { Name = "Yeşil" });
+            //colorManager.Add(new Color { Name = "Açık Mavi" });
+            //colorManager.Add(new Color { Name = "Koyu Gri" });
+            //colorManager.Add(new Color { Name = "Açık Gri" });
 
             //Update
-            //colorManager.Update(new Color { ColorId = 1, ColorName = "Beyaz" });
-            //colorManager.Update(new Color { ColorId = 11, ColorName = "Açık Gri 2" });
+            //colorManager.Update(new Color { Id = 1, Name = "Beyaz" });
+            //colorManager.Update(new Color { Id = 11, Name = "Açık Gri 2" });
 
             //Delete
-            //colorManager.Delete(new Color { ColorId = 3 });
-            //colorManager.Delete(new Color { ColorId = 11 });
+            //colorManager.Delete(new Color { Id = 3 });
+            //colorManager.Delete(new Color { Id = 11 });
 
             //Read
             //GetAll()
             foreach (var color in colorManager.GetAll().Data)
             {
-                Console.WriteLine(color.ColorName);
+                Console.WriteLine(color.Name);
             }
 
             //GetById
-            Console.WriteLine("GetById(6) > " + colorManager.GetById(6).Data.ColorName);
+            Console.WriteLine("GetById(6) > " + colorManager.GetById(6).Data.Name);
         }
 
         private static void BrandCrudTest()
@@ -166,32 +166,32 @@ namespace ConsoleUI
             BrandManager brandManager = new BrandManager(new EfBrandDal());
 
             //Create
-            //brandManager.Add(new Brand { BrandName = "Subaru" });
-            //brandManager.Add(new Brand { BrandName = "Hyundai" });
-            //brandManager.Add(new Brand { BrandName = "Audi" });
-            //brandManager.Add(new Brand { BrandName = "Ford" });
-            //brandManager.Add(new Brand { BrandName = "Renault" });
-            //brandManager.Add(new Brand { BrandName = "Mazdaa" });
-            //brandManager.Add(new Brand { BrandName = "TOGG" });
-            //brandManager.Add(new Brand { BrandName = "Ferrarii" });
+            //brandManager.Add(new Brand { Name = "Subaru" });
+            //brandManager.Add(new Brand { Name = "Hyundai" });
+            //brandManager.Add(new Brand { Name = "Audi" });
+            //brandManager.Add(new Brand { Name = "Ford" });
+            //brandManager.Add(new Brand { Name = "Renault" });
+            //brandManager.Add(new Brand { Name = "Mazdaa" });
+            //brandManager.Add(new Brand { Name = "TOGG" });
+            //brandManager.Add(new Brand { Name = "Ferrarii" });
 
             //Update
-            //brandManager.Update(new Brand { BrandId = 16, BrandName = "Mazda" });
-            //brandManager.Update(new Brand { BrandId = 18, BrandName = "Ferrari" });
+            //brandManager.Update(new Brand { Id = 6, Name = "Mazda" });
+            //brandManager.Update(new Brand { Id = 8, Name = "Ferrari" });
 
             //Delete
-            //brandManager.Delete(new Brand { BrandId = 13 });
-            //brandManager.Delete(new Brand { BrandId = 15 });
+            //brandManager.Delete(new Brand { Id = 5 });
+            //brandManager.Delete(new Brand { Id = 6 });
 
             //Read
             //GetAll()
             foreach (var brand in brandManager.GetAll().Data)
             {
-                Console.WriteLine(brand.BrandName);
+                Console.WriteLine(brand.Name);
             }
 
             //GetById()
-            Console.WriteLine("GetById(17) > " + brandManager.GetById(17).Data.BrandName);
+            Console.WriteLine("GetById(7) > " + brandManager.GetById(7).Data.Name);
         }
 
         private static void CarBusinessTest()
@@ -204,7 +204,7 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new InMemoryCarDal());
 
-            Car newCar = new Car { CarId = 7, BrandId = 5, ColorId = 2, DailyPrice = 600, ModelYear = 2018, Description = "Ehliyet yaşı 2 ve üzeri : Polo" };
+            Car newCar = new Car { Id = 7, BrandId = 5, ColorId = 2, DailyPrice = 600, ModelYear = 2018, Description = "Ehliyet yaşı 2 ve üzeri : Polo" };
 
 
             //GetAll
@@ -217,7 +217,7 @@ namespace ConsoleUI
             InMemoryGetCars(carManager);
 
             //Update
-            carManager.Update(new Car { CarId = 7, BrandId = 5, ColorId = 2, DailyPrice = 650, ModelYear = 2019, Description = "Ehliyet yaşı 3 ve üzeri : Polo" });
+            carManager.Update(new Car { Id = 7, BrandId = 5, ColorId = 2, DailyPrice = 650, ModelYear = 2019, Description = "Ehliyet yaşı 3 ve üzeri : Polo" });
             Console.WriteLine("Updated");
 
             InMemoryGetCars(carManager);
