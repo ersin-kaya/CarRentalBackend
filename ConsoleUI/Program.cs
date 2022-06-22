@@ -12,18 +12,39 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             //InMemoryTest();
-
             //CarBusinessTest();
 
             //9. Gün - Ödev 1 Başlangıcı
-
             //BrandCrudTest();
-
             //ColorCrudTest();
-
             //CarCrudTest();
-
             //CarDtoTest();
+
+            //10. Gün - Ödev 4 Başlangıcı
+            //AddUser();
+            //AddCustomer();
+        }
+
+        private static void AddCustomer()
+        {
+            //Customer
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+
+            //customerManager.Add(new Customer { CompanyName = "Kodlama.io", UserId = 1 });
+            //customerManager.Add(new Customer { CompanyName = "Microsoft", UserId = 5 });
+            //customerManager.Add(new Customer { CompanyName = "BTK", UserId = 6 });
+        }
+
+        private static void AddUser()
+        {
+            //User
+            UserManager userManager = new UserManager(new EfUserDal());
+
+            //userManager.Add(new User { FirstName="Engin", LastName="Demiroğ", Email="abcd.email@gmail.com", Password="abcd1234" });
+            //userManager.Add(new User { FirstName="Ersin", LastName="Kaya", Email="ersin-kaya@outlook.com.tr", Password="abcd1234" });
+            //userManager.Add(new User { FirstName="Furkan", LastName="Yıldırım", Email="abcd_email@outlook.com", Password="abcd1234" });
+            //userManager.Add(new User { FirstName="Serkan", LastName="Kılıç", Email="abcd-email@outlook.com", Password="abcd1234" });
+            //userManager.Add(new User { FirstName="Hakan", LastName="Şen", Email="abcd-email@outlook.com.tr", Password="abcd1234" });
         }
 
         private static void CarDtoTest()
