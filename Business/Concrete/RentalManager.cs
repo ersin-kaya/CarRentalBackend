@@ -53,13 +53,19 @@ namespace Business.Concrete
             
             var result = _rentalDal.GetAll(r => r.CarId == carId).OrderByDescending(r => r.RentDate).FirstOrDefault();
 
-            if (result == null || result.ReturnDate != null)
+            try
             {
-                return new SuccessResult();
+                if (result.ReturnDate != null)
+                {
+                    return new SuccessResult();
+                }
+            }
+            catch (Exception)
+            {
+                
             }
 
             return new ErrorResult();
-            
         }
 
         public IResult Update(Rental rental)
