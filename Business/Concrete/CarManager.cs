@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingCorcerns.ValidationRules.FluentValidation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -24,15 +26,10 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
-            if ((car.Description.Length >= 2) && (car.DailyPrice > 0))  //araç ekleme işlemi belirtilen kurallara göre düzenlendi.
-            {
-                _carDal.Add(car);
-                return new SuccessResult(Messages.CarAdded);
-            }
-            else
-            {
-                return new ErrorResult(Messages.CarValueInvalid);
-            }
+            ValidationTool.Validate(new CarValidator(), car);   //refactor edilecek
+
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
         }
 
         public IResult Delete(Car car)
@@ -65,7 +62,7 @@ namespace Business.Concrete
 
         public IDataResult<Car> GetById(int carId)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(c=>c.Id == carId));
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId));
         }
 
         public IResult Update(Car car)
@@ -81,7 +78,7 @@ namespace Business.Concrete
 
         public IDataResult<int> GetModelYearForOldestCar()
         {
-            var result = _carDal.GetAll().OrderBy(c=>c.ModelYear).First();
+            var result = _carDal.GetAll().OrderBy(c => c.ModelYear).First();
 
             return new SuccessDataResult<int>(result.ModelYear);
         }
