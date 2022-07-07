@@ -44,7 +44,7 @@ namespace Business.Concrete
         public IResult Delete(CarImage carImage)
         {
 
-            _fileHelper.Delete(Paths.CarImagesPath + GetPathOfCarImage(carImage));
+            _fileHelper.Delete(Paths.CarImagesPath + GetPathOfCarImage(carImage.Id));
 
             _carImageDal.Delete(carImage);
             return new SuccessResult(Messages.CarImageDeleted);
@@ -85,7 +85,7 @@ namespace Business.Concrete
             carImage.Date = DateTime.Now;   //refactor?
 
 
-            string filePath = Paths.CarImagesPath + GetPathOfCarImage(carImage); //refactor?
+            string filePath = Paths.CarImagesPath + GetPathOfCarImage(carImage.Id); //refactor?
 
             carImage.ImagePath = _fileHelper.Update(file, Paths.CarImagesPath, filePath).Data;    //refactor
 
@@ -116,9 +116,9 @@ namespace Business.Concrete
             return _carImageDal.GetAll(i => i.CarId == carId).Count;
         }
 
-        private string GetPathOfCarImage(CarImage carImage)
+        private string GetPathOfCarImage(int id)
         {
-            return _carImageDal.Get(i => i.Id == carImage.Id).ImagePath;
+            return _carImageDal.Get(i => i.Id == id).ImagePath;
         }
     }
 }
