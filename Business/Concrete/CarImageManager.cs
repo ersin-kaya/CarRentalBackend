@@ -26,7 +26,7 @@ namespace Business.Concrete
 
         public IResult Add(CarImage carImage, IFormFile file)
         {
-            IResult result = BusinessRules.Run(CheckCountOfCarImages(carImage.CarId));
+            IResult result = BusinessRules.Run(CheckCountOfCarImagesForAdding(carImage.CarId));
 
             if (result != null)
             {
@@ -56,12 +56,27 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
+
+            IResult result = BusinessRules.Run(CheckCountOfCarImagesForListing(carId));
+
+            if (result != null)
+            {
+                return GetDefaultCarImage(carId);
+            }
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(i => i.CarId == carId));
         }
 
         public IDataResult<CarImage> GetById(int carImageId)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(i => i.Id == carImageId));
+        }
+
+        public IDataResult<List<CarImage>> GetDefaultCarImage(int forcedCarId)
+        {
+            var defaultCarImage = new List<CarImage>();
+            defaultCarImage.Add(new CarImage { Id = 0, CarId = forcedCarId, Date = DateTime.Now, ImagePath = "defaultCarImage.png" }); //refactor - ImagePath
+
+            return new SuccessDataResult<List<CarImage>>(defaultCarImage);
         }
 
         public IResult Update(CarImage carImage, IFormFile file)
@@ -76,15 +91,27 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImageUpdated);
         }
 
-        private IResult CheckCountOfCarImages(int carId)
+        private IResult CheckCountOfCarImagesForAdding(int carId)
         {
-            var result = _carImageDal.GetAll(i => i.CarId == carId).Count;
-
-            if (!(result < 5))
+            if (!(GetCountOfCarImages(carId) < 5))
             {
                 return new ErrorResult(Messages.CountOfCarImagesError);
             }
             return new SuccessResult();
+        }
+
+        private IResult CheckCountOfCarImagesForListing(int carId)
+        {
+            if (GetCountOfCarImages(carId) > 0)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult();
+        }
+
+        private int GetCountOfCarImages(int carId)
+        {
+            return _carImageDal.GetAll(i => i.CarId == carId).Count;
         }
     }
 }
