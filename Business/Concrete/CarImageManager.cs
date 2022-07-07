@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.Helpers.FileHelper;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -25,6 +26,13 @@ namespace Business.Concrete
 
         public IResult Add(CarImage carImage, IFormFile file)
         {
+            IResult result = BusinessRules.Run(CheckCountOfCarImages(carImage.CarId));
+
+            if (result != null)
+            {
+                return result;
+            }
+
             carImage.Date = DateTime.Now;   //refactor?
 
             carImage.ImagePath = _fileHelper.Upload(file, Paths.CarImagesPath).Data;    //refactor
@@ -66,6 +74,17 @@ namespace Business.Concrete
 
             _carImageDal.Update(carImage);
             return new SuccessResult(Messages.CarImageUpdated);
+        }
+
+        private IResult CheckCountOfCarImages(int carId)
+        {
+            var result = _carImageDal.GetAll(i => i.CarId == carId).Count;
+
+            if (!(result < 5))
+            {
+                return new ErrorResult(Messages.CountOfCarImagesError);
+            }
+            return new SuccessResult();
         }
     }
 }

@@ -60,5 +60,6 @@ namespace Business.Constants
 
         public static string CarImagesListed = "Araç fotoğrafları listelendi";
 
+        public static string CountOfCarImagesError = "Bir araç için en fazla 5 adet fotoğraf yükleyebilirsiniz";
     }
 }
