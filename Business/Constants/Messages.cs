@@ -48,5 +48,17 @@ namespace Business.Constants
         public static string RentalsListed = "Kiralamalar listelendi";
         public static string TheCarIsAlreadyRented = "Araba henüz teslim edilmediği için yeni bir kiralama işlemi yapılamaz";
 
+        //CarImage
+        public static string CarImageAdded = "Araç fotoğrafı eklendi";
+        //public static string CarImagesAdded = "Araç fotoğrafları eklendi";
+
+        public static string CarImageDeleted = "Araç fotoğrafı silindi";
+        //public static string CarImagesDeleted = "Araç fotoğrafları silindi";
+
+        public static string CarImageUpdated = "Araç fotoğrafı güncellendi";
+        //public static string CarImagesUpdated = "Araç fotoğrafları güncellendi";
+
+        public static string CarImagesListed = "Araç fotoğrafları listelendi";
+
     }
 }
