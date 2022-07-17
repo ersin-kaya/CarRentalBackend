@@ -1,9 +1,8 @@
-﻿using Core.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Entities.DTOs
+namespace Core.Entities.DTOs
 {
     public class UserOperationClaimDetailDto : IDto
     {

@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Entities.Concrete;
+using Core.Entities.DTOs;
 using Core.Extensions;
 using Core.Utilities.Security.Encryption;
 using Microsoft.Extensions.Configuration;

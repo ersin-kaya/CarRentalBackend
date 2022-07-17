@@ -1,6 +1,6 @@
 ﻿using Core.Entities.Concrete;
+using Core.Entities.DTOs;
 using Core.Utilities.Results.Abstract;
-using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;

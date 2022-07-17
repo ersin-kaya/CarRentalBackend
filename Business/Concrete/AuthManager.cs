@@ -8,6 +8,7 @@ using Core.Utilities.Security.JWT;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -70,7 +71,7 @@ namespace Business.Concrete
 
         public IResult UserExists(string email)
         {
-            if (_userService.GetByMail(email)!=null)
+            if (_userService.GetByMail(email).Data!=null)
             {
                 return new ErrorResult(Messages.UserAlreadyExists);
             }
