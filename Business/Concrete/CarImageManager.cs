@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers.FileHelper;
 using Core.Utilities.Results.Abstract;
@@ -24,6 +27,8 @@ namespace Business.Concrete
             _fileHelper = fileHelper;
         }
 
+        [SecuredOperation("carimage.add,carimage,admin")]
+        [ValidationAspect(typeof(CarImageValidator))]
         public IResult Add(CarImage carImage, IFormFile file)
         {
             IResult result = BusinessRules.Run(CheckCountOfCarImagesForAdding(carImage.CarId));
@@ -41,6 +46,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImageAdded);
         }
 
+        [SecuredOperation("carimage.delete,carimage,admin")]
         public IResult Delete(CarImage carImage)
         {
 
@@ -50,11 +56,13 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImageDeleted);
         }
 
+        [SecuredOperation("carimage.get,carimage,admin")]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.CarImagesListed);
         }
 
+        [SecuredOperation("carimage.get,carimage,admin")]
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
 
@@ -67,11 +75,13 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(i => i.CarId == carId));
         }
 
+        [SecuredOperation("carimage.get,carimage,admin")]
         public IDataResult<CarImage> GetById(int carImageId)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(i => i.Id == carImageId));
         }
 
+        [SecuredOperation("carimage.get,carimage,admin")]
         public IDataResult<List<CarImage>> GetDefaultCarImage(int forcedCarId)
         {
             var defaultCarImage = new List<CarImage>();
@@ -80,6 +90,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(defaultCarImage);
         }
 
+        [SecuredOperation("carimage.update,carimage,admin")]
+        [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(CarImage carImage, IFormFile file)
         {
             carImage.Date = DateTime.Now;   //refactor?

@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -21,6 +24,8 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
+        [SecuredOperation("rental.add,rental,admin")]
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
             if (IsReturnDateNull(rental.CarId).Success)
@@ -32,22 +37,26 @@ namespace Business.Concrete
             return new ErrorResult(Messages.TheCarIsAlreadyRented);
         }
 
+        [SecuredOperation("rental.delete,rental,admin")]
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
             return new SuccessResult(Messages.RentalDeleted);
         }
-
+        
+        [SecuredOperation("rental.get,rental,admin")]
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
-
+        
+        [SecuredOperation("rental.get,rental,admin")]
         public IDataResult<Rental> GetById(int rentalId)
         {
             return new SuccessDataResult<Rental>(_rentalDal.Get(r=>r.Id == rentalId));
         }
-
+        
+        [SecuredOperation("rental.isreturndatenull,rental,admin")]
         public IResult IsReturnDateNull(int carId)
         {
             
@@ -67,7 +76,9 @@ namespace Business.Concrete
 
             return new ErrorResult();
         }
-
+        
+        [SecuredOperation("rental.update,rental,admin")]
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);

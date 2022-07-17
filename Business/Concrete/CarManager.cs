@@ -33,12 +33,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarAdded);
         }
 
+        [SecuredOperation("car.delete,car,admin")]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
         }
 
+        [SecuredOperation("car.get,car,admin")]
         public IDataResult<List<Car>> GetAll()
         {
             //business codes
@@ -51,32 +53,39 @@ namespace Business.Concrete
 
         }
 
+        [SecuredOperation("car.get,car,admin")]
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
         }
 
+        [SecuredOperation("car.get,car,admin")]
         public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
         }
 
+        [SecuredOperation("car.get,car,admin")]
         public IDataResult<Car> GetById(int carId)
         {
             return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId));
         }
 
+        [SecuredOperation("car.update,car,admin")]
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
         }
 
+        [SecuredOperation("car.get,car,admin")]
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
+        [SecuredOperation("car.get,car,admin")]
         public IDataResult<int> GetModelYearForOldestCar()
         {
             var result = _carDal.GetAll().OrderBy(c => c.ModelYear).First();
