@@ -4,6 +4,7 @@ using Core.Entities.Concrete;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,26 +26,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserAdded);
         }
 
-        public IResult Delete(User user)
+        public IDataResult<User> GetByMail(string email)
         {
-            _userDal.Delete(user);
-            return new SuccessResult(Messages.UserDeleted);
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
         }
 
-        public IDataResult<List<User>> GetAll()
+        public IDataResult<List<UserOperationClaimDetailDto>> GetClaims(User user)
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UsersListed);
-        }
-
-        public IDataResult<User> GetById(int userId)
-        {
-            return new SuccessDataResult<User>(_userDal.Get(u=>u.Id == userId));
-        }
-
-        public IResult Update(User user)
-        {
-            _userDal.Update(user);
-            return new SuccessResult(Messages.UserUpdated);
+            return new SuccessDataResult<List<UserOperationClaimDetailDto>>(_userDal.GetClaims(user));
         }
     }
 }
