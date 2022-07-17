@@ -55,7 +55,7 @@ namespace Business.Concrete
 
             try
             {
-                if (result.ReturnDate != null)
+                if (result == null || result.ReturnDate != null)
                 {
                     return new SuccessResult();
                 }
