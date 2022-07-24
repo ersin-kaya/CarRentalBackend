@@ -3,6 +3,7 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
@@ -14,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Business.Concrete
 {
@@ -50,8 +52,10 @@ namespace Business.Concrete
         
         [SecuredOperation("rental.get,rental,admin")]
         [CacheAspect]
+        [PerformanceAspect(2)]  //2 seconds
         public IDataResult<List<Rental>> GetAll()
         {
+            Thread.Sleep(2000); //for performance test
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
         
