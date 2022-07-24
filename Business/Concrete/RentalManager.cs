@@ -2,6 +2,7 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -26,6 +27,7 @@ namespace Business.Concrete
 
         [SecuredOperation("rental.add,rental,admin")]
         [ValidationAspect(typeof(RentalValidator))]
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult Add(Rental rental)
         {
             if (IsReturnDateNull(rental.CarId).Success)
@@ -38,6 +40,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("rental.delete,rental,admin")]
+        [CacheRemoveAspect("IRentalService.Get", "IRentalService.IsReturnDateNull")]
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
@@ -45,18 +48,21 @@ namespace Business.Concrete
         }
         
         [SecuredOperation("rental.get,rental,admin")]
+        [CacheAspect]
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
         
         [SecuredOperation("rental.get,rental,admin")]
+        [CacheAspect]
         public IDataResult<Rental> GetById(int rentalId)
         {
             return new SuccessDataResult<Rental>(_rentalDal.Get(r=>r.Id == rentalId));
         }
         
         [SecuredOperation("rental.isreturndatenull,rental,admin")]
+        [CacheAspect]
         public IResult IsReturnDateNull(int carId)
         {
             
@@ -79,6 +85,7 @@ namespace Business.Concrete
         
         [SecuredOperation("rental.update,rental,admin")]
         [ValidationAspect(typeof(RentalValidator))]
+        [CacheRemoveAspect("IRentalService.Get", "IRentalService.IsReturnDateNull")]
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);

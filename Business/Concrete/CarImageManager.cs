@@ -2,6 +2,7 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers.FileHelper;
@@ -29,6 +30,7 @@ namespace Business.Concrete
 
         [SecuredOperation("carimage.add,carimage,admin")]
         [ValidationAspect(typeof(CarImageValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(CarImage carImage, IFormFile file)
         {
             IResult result = BusinessRules.Run(CheckCountOfCarImagesForAdding(carImage.CarId));
@@ -47,6 +49,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("carimage.delete,carimage,admin")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage carImage)
         {
 
@@ -57,12 +60,14 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("carimage.get,carimage,admin")]
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.CarImagesListed);
         }
 
         [SecuredOperation("carimage.get,carimage,admin")]
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
 
@@ -76,12 +81,14 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("carimage.get,carimage,admin")]
+        [CacheAspect]
         public IDataResult<CarImage> GetById(int carImageId)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(i => i.Id == carImageId));
         }
 
         [SecuredOperation("carimage.get,carimage,admin")]
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetDefaultCarImage(int forcedCarId)
         {
             var defaultCarImage = new List<CarImage>();
@@ -92,6 +99,7 @@ namespace Business.Concrete
 
         [SecuredOperation("carimage.update,carimage,admin")]
         [ValidationAspect(typeof(CarImageValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(CarImage carImage, IFormFile file)
         {
             carImage.Date = DateTime.Now;   //refactor?

@@ -2,6 +2,7 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -27,6 +28,7 @@ namespace Business.Concrete
 
         [SecuredOperation("car.add,car,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
@@ -34,6 +36,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("car.delete,car,admin")]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
@@ -41,6 +44,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("car.get,car,admin")]
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             //business codes
@@ -54,18 +58,21 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("car.get,car,admin")]
+        [CacheAspect]
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
         }
 
         [SecuredOperation("car.get,car,admin")]
+        [CacheAspect]
         public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
         }
 
         [SecuredOperation("car.get,car,admin")]
+        [CacheAspect]
         public IDataResult<Car> GetById(int carId)
         {
             return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId));
@@ -73,6 +80,7 @@ namespace Business.Concrete
 
         [SecuredOperation("car.update,car,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
@@ -80,6 +88,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("car.get,car,admin")]
+        [CacheAspect]
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
