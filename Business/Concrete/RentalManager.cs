@@ -22,10 +22,12 @@ namespace Business.Concrete
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
+        ICarService _carService;
 
-        public RentalManager(IRentalDal rentalDal)
+        public RentalManager(IRentalDal rentalDal, ICarService carService)
         {
             _rentalDal = rentalDal;
+            _carService = carService;
         }
 
         [SecuredOperation("rental.add,rental,admin")]
@@ -33,10 +35,16 @@ namespace Business.Concrete
         [CacheRemoveAspect("IRentalService.Get")]
         public IResult Add(Rental rental)
         {
-            if (IsReturnDateNull(rental.CarId).Success)
+            var result = IsReturnDateNull(rental.CarId);
+
+            if (result.Success)
             {
                 _rentalDal.Add(rental);
                 return new SuccessResult(Messages.RentalAdded);
+            }
+            else if (result.Message == Messages.CarNotFound)
+            {
+                return new ErrorResult(Messages.CarNotFound);
             }
 
             return new ErrorResult(Messages.TheCarIsAlreadyRented);
@@ -70,22 +78,20 @@ namespace Business.Concrete
         [CacheAspect]
         public IResult IsReturnDateNull(int carId)
         {
-            
-            var result = _rentalDal.GetAll(r => r.CarId == carId).OrderByDescending(r => r.RentDate).FirstOrDefault();
+            var checkCar = _carService.IsCarExists(carId);
 
-            try
+            if (checkCar.Success)
             {
+                var result = _rentalDal.GetAll(r => r.CarId == carId).OrderByDescending(r => r.RentDate).FirstOrDefault();
+
                 if (result == null || result.ReturnDate != null)
                 {
                     return new SuccessResult();
                 }
+                return new ErrorResult();
             }
-            catch (Exception)
-            {
-                
-            }
+            return new ErrorResult(Messages.CarNotFound);
 
-            return new ErrorResult();
         }
 
         [SecuredOperation("rental.update,rental,admin")]

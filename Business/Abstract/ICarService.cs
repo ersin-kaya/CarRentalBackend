@@ -18,6 +18,7 @@ namespace Business.Abstract
         IDataResult<List<Car>> GetCarsByBrandId(int brandId);
         IDataResult<List<CarDetailDto>> GetCarDetails();
         IDataResult<int> GetModelYearForOldestCar();
+        IResult IsCarExists(int carId);
 
     }
 }

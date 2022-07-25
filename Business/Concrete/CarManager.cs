@@ -101,5 +101,16 @@ namespace Business.Concrete
 
             return new SuccessDataResult<int>(result.ModelYear);
         }
+
+        public IResult IsCarExists(int carId)
+        {
+            var result = _carDal.Get(c => c.Id == carId);
+
+            if (result != null)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult();
+        }
     }
 }
