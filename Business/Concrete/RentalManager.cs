@@ -63,7 +63,7 @@ namespace Business.Concrete
         [PerformanceAspect(2)]  //2 seconds
         public IDataResult<List<Rental>> GetAll()
         {
-            Thread.Sleep(2000); //for performance test
+            //Thread.Sleep(2000); //for performance test
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
         

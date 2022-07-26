@@ -11,6 +11,6 @@ namespace Core.CrossCuttingCorcerns.Caching
         object Get(string key);
         bool IsAdd(string key);
         void Remove(string key);
-        void RemoveByPattern(string[] pattern);
+        void RemoveByPattern(string[] patterns);
     }
 }
