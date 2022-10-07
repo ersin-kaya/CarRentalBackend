@@ -9,4 +9,4 @@ This project was generated with .NET Core version 3.1.
 
 ## Contact
 
-If you want to contact me you can reach me at <ersin-kaya@outlook.com.tr>.
+If you want to contact me, you can reach me at <ersin-kaya@outlook.com.tr>.
