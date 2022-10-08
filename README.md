@@ -9,7 +9,7 @@ This project was generated with .NET Core version 3.1.
 
 ## Screenshots
 
-#### When requested with an invalid token:
+#### When requested with an invalid token for a list of all rentals:
 ![Invalid-token](https://user-images.githubusercontent.com/79023498/194703802-8ab0f286-2a75-417a-a3ba-26bb5e233938.jpg)
 
 #### Logging in for a new token:
